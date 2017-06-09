@@ -44,6 +44,7 @@
   },
   "private": true,
   "dependencies": {
-    "@vx/hierarchy": "0.0.119"
+    "@vx/hierarchy": "0.0.119",
+    "recompose": "^0.23.5"
   }
 }
