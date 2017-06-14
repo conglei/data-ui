@@ -18,7 +18,7 @@ const getFont = ({ fontFamily, fontSize, letterSpacing = 0, lineHeight, padding 
   paddingTop: padding,
 });
 
-const fontFamily = 'BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif';
+export const fontFamily = 'BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif';
 
 export default {
   color,
