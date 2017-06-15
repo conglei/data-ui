@@ -22,6 +22,7 @@
   "devDependencies": {
     "@data-ui/data-table": "^0.0.17",
     "@data-ui/event-flow": "^0.0.0",
+    "@data-ui/forms": "^0.0.0",
     "@data-ui/xy-chart": "^0.0.8",
     "@kadira/storybook": "^2.35.3",
     "@vx/mock-data": "0.0.95",
@@ -44,7 +45,6 @@
   },
   "private": true,
   "dependencies": {
-    "@vx/hierarchy": "0.0.119",
     "recompose": "^0.23.5"
   }
 }
