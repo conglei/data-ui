@@ -72,6 +72,17 @@ export const pointSeriesDataShape = PropTypes.arrayOf(PropTypes.shape({
   strokeDasharray: PropTypes.string,
 }));
 
+export const boxPlotSeriesDataShape = PropTypes.arrayOf(PropTypes.shape({
+  max: PropTypes.number.isRequired,
+  min: PropTypes.number.isRequired,
+  firstQuartile: PropTypes.number.isRequired,
+  thirdQuartile: PropTypes.number.isRequired,
+  median: PropTypes.number.isRequired,
+  fill: PropTypes.string,
+  stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
+}));
+
 export const intervalSeriesDataShape = PropTypes.arrayOf(PropTypes.shape({
   x0: PropTypes.oneOfType([
     PropTypes.string,

@@ -33,6 +33,29 @@ export const pointData = genRandomNormalPoints(n).map(([x, y], i) => ({
   label: (i % n) === 0 ? `(${parseInt(x, 10)},${parseInt(y, 10)})` : null,
 }));
 
+
+export const BoxPlotData = (number) => {
+  const data = [];
+  let i;
+  for (i = 0; i < number; i += 1) {
+    const points = [];
+    let j;
+    for (j = 0; j < 5; j += 1) {
+      points.push(Math.random() * 100);
+    }
+    points.sort((a, b) => (a - b));
+    data.push({
+      x: `Statistics ${i}`,
+      min: points[0],
+      firstQuartile: points[1],
+      median: points[2],
+      thirdQuartile: points[3],
+      max: points[4],
+    });
+  }
+  return data;
+};
+
 // interval data
 const intervals = [[5, 8], [15, 19]];
 

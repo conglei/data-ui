@@ -8,6 +8,7 @@ export { default as IntervalSeries } from './series/IntervalSeries';
 export { default as LineSeries } from './series/LineSeries';
 export { default as PointSeries } from './series/PointSeries';
 export { default as StackedBarSeries } from './series/StackedBarSeries';
+export { default as BoxPlotSeries } from './series/BoxPlotSeries.jsx';
 
 export { LinearGradient } from '@vx/gradient';
 export { PatternLines } from '@vx/pattern';

@@ -327,5 +327,49 @@ export default {
         </ResponsiveXYChart>
       ),
     },
+    {
+      description: 'Box Plot Example',
+      example: () => {
+        // const xDomain = boxPlotData.map((d,i)=>i);
+        // console.log(extent);
+        // const yDomain =
+        const boxPlotData = BoxPlotData(10);
+        const values = boxPlotData.reduce((r, e) => r.push(e.min, e.max) && r, []);
+        const minYValue = Math.min(...values);
+        const maxYValue = Math.max(...values);
+        const yDomain = [minYValue - (0.1 * Math.abs(minYValue)),
+          maxYValue + (0.1 * Math.abs(minYValue))];
+        return (
+          <ResponsiveXYChart
+            theme={{}}
+            ariaLabel="Required label"
+            xScale={{
+              type: 'band',
+              paddingInner: 0.15,
+              paddingOuter: 0.3,
+            }}
+            yScale={{ type: 'linear',
+              domain: yDomain,
+            }}
+            showYGrid
+          >
+            <LinearGradient
+              id="aqua_lightaqua_gradient"
+              from="#99e9f2"
+              to="#c5f6fa"
+            />
+            <YAxis numTicks={4} />
+            <BoxPlotSeries
+              data={boxPlotData}
+              label="Test"
+              fill="url(#aqua_lightaqua_gradient)"
+              stroke="#22b8cf"
+              strokeWidth={1.5}
+            />
+            <XAxis />
+          </ResponsiveXYChart>
+        );
+      },
+    },
   ],
 };

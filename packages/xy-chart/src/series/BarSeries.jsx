@@ -46,7 +46,6 @@ export default function BarSeries({
   yScale,
 }) {
   if (!xScale || !yScale || !barWidth) return null;
-
   const maxHeight = (yScale.range() || [0])[0];
   const offset = xScale.offset || 0;
   return (
