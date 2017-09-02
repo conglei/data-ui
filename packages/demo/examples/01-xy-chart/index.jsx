@@ -13,6 +13,7 @@ import {
   GroupedBarSeries,
   StackedBarSeries,
   PointSeries,
+  BoxPlotSeries,
 
   PatternLines,
   LinearGradient,
@@ -31,6 +32,7 @@ import {
   pointData,
   intervalLineData,
   intervalData,
+  BoxPlotData,
 } from './data';
 
 const parseDate = timeParse('%Y%m%d');
