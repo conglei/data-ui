@@ -12,6 +12,7 @@ import {
   CrossHair,
   theme,
   withParentSize,
+  Lasso,
 } from '@data-ui/xy-chart';
 
 import {
@@ -23,7 +24,7 @@ import {
 import Checkbox from '../shared/Checkbox';
 
 const BIN_COUNT = 50;
-const n = 100;
+const n = 50;
 const datasets = [];
 const datasetColors = theme.colors.categories;
 
@@ -34,7 +35,7 @@ export const pointData = genRandomNormalPoints(n).forEach(([x, y], i) => {
   datasets[dataSetIndex].push({
     x: dataSetIndex !== 1 ? x + Math.random() : x,
     y: dataSetIndex === 1 ? y - Math.random() : y,
-    fill: theme.colors.categories[dataSetIndex],
+    // fill: theme.colors.categories[dataSetIndex],
     size: Math.max(3, Math.random() * 10),
   });
 });
@@ -42,6 +43,24 @@ export const pointData = genRandomNormalPoints(n).forEach(([x, y], i) => {
 const marginScatter = { top: 10, right: 10, bottom: 64, left: 64 };
 const marginTopHist = { top: 10, right: marginScatter.right, bottom: 5, left: marginScatter.left };
 const marginSideHist = { top: 10, right: marginScatter.bottom, bottom: 5, left: marginScatter.top };
+
+function isInside(point, vs) {
+  const { x, y } = point;
+  let inside = false;
+  for (let i = 0, j = vs.length - 1; i < vs.length; j = i, i += 1) {
+    const xi = vs[i].x;
+    const yi = vs[i].y;
+    const xj = vs[j].x;
+    const yj = vs[j].y;
+
+    const intersect = ((yi > y) !== (yj > y))
+       && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+    if (intersect) inside = !inside;
+  }
+
+  return inside;
+}
+
 
 function renderTooltip({ datum }) { // eslint-disable-line react/prop-types
   const { x, y, fill: color } = datum;
@@ -70,10 +89,23 @@ const defaultProps = {
 class ScatterWithHistogram extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { showVoronoi: false };
+    this.state = {
+      showVoronoi: false,
+      selectedPoints: new Set(),
+    };
+    this.updateSelectedPoints = this.updateSelectedPoints.bind(this);
+  }
+
+  updateSelectedPoints({ polygon }) {
+    const selectedPoints = datasets[0].filter(point => isInside(point, polygon));
+    this.setState(() => ({
+      selectedPoints: new Set(selectedPoints),
+    }));
   }
 
   renderScatter({ width, height }) {
+    const { selectedPoints } = this.state;
+
     return (
       <div style={{ transform: 'rotate(90)' }}>
         <XYChart
@@ -85,28 +117,19 @@ class ScatterWithHistogram extends React.PureComponent {
           margin={marginScatter}
           theme={theme}
           renderTooltip={renderTooltip}
-          eventTrigger="voronoi"
-          showVoronoi={this.state.showVoronoi}
         >
           {datasets.map((dataset, i) => (
             <PointSeries
               key={i}
               data={dataset}
-              fill={datasetColors[i]}
+              fill={d => (selectedPoints.has(d) ? '#000' : datasetColors[i])}
               opacity={0.7}
               size={5}
             />
           ))}
-          <CrossHair
-            stroke={theme.colors.grays[6]}
-            circleFill="transparent"
-            circleSize={8}
-            circleStroke={theme.colors.grays[6]}
-            fullWidth
-            fullHeight
-          />
           <XYChartXAxis label="x value" />
           <XYChartYAxis label="y value" orientation="left" />
+          <Lasso onDragMove={this.updateSelectedPoints} />
         </XYChart>
       </div>
     );

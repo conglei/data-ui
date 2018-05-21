@@ -64,6 +64,8 @@
   },
   "private": true,
   "dependencies": {
+    "@vx/drag": "0.0.157",
+    "@vx/shape": "0.0.160",
     "d3-force": "^1.1.0",
     "d3-random": "^1.1.0"
   }

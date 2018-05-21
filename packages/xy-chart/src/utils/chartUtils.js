@@ -43,6 +43,10 @@ export function isReferenceLine(name) {
   return (/reference/gi).test(name);
 }
 
+export function isBrushingComponent(name) {
+  return name === 'Brush' || name === 'Lasso';
+}
+
 export function isSeries(name) {
   return (/series/gi).test(name);
 }

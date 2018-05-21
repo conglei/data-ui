@@ -34,6 +34,7 @@ import RectPointComponent from './RectPointComponent';
 import ResponsiveXYChart, { dateFormatter } from './ResponsiveXYChart';
 import StackedAreaExample from './StackedAreaExample';
 import ScatterWithHistogram from './ScatterWithHistograms';
+import ScatterWithLasso from './ScatterWithLasso';
 import {
   BoxPlotSeriesExample,
   BoxPlotViolinPlotSeriesExample,
@@ -293,6 +294,13 @@ export default {
             circleFill="white"
           />
         </ResponsiveXYChart>
+      ),
+    },
+    {
+      description: 'PointSeries with Lasso',
+      components: [PointSeries],
+      example: () => (
+        <ScatterWithLasso />
       ),
     },
     {

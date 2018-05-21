@@ -16,6 +16,7 @@ import {
   isCrossHair,
   isReferenceLine,
   isSeries,
+  isBrushingComponent,
   getChildWithName,
   numTicksForWidth,
   numTicksForHeight,
@@ -306,6 +307,8 @@ class XYChart extends React.PureComponent {
               return null;
             } else if (isReferenceLine(name)) {
               return React.cloneElement(Child, { xScale, yScale });
+            } else if (isBrushingComponent(name)) {
+              return React.cloneElement(Child, { xScale, yScale, margin, width, height });
             }
             return Child;
           })}
